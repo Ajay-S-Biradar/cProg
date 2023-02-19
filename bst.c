@@ -6,6 +6,32 @@ typedef struct node{
 	struct node* right;
 }node;
 
+int height(node* node){
+	if(node==NULL){
+		return 0;
+	}
+	int ans;
+	int left = height(node->left);
+	int right = height(node->left);
+	
+	if(left>right){
+		ans = left+1;
+	}
+	else ans = right+1;
+	return ans;
+}
+
+int countleafnode(node* root,int& count){
+	if(root==NULL)
+	return 0;
+	
+	countleafnode(root->left,count);
+	if(root->left==NULL && root->right==NULL)
+	count++;
+	countleafnode(root->right,count);
+	return count;
+}
+
 node* maketree(int x){
 	node *p = (node*)malloc(sizeof(node));
 	p->data= x;
@@ -20,7 +46,7 @@ node* insert(node* tree,int data){
 	if(data<tree->data)
 	tree->left = insert(tree->left,data);
 	else
-	tree->right = insert(tree->left,data);
+	tree->right = insert(tree->right,data);
 	return tree;
 }
 void intrav(node* tree){
@@ -50,14 +76,20 @@ void postorder(node* tree){
 int main(){
 	node* root= NULL;
 	root = insert(root,10);
-	root = insert(root,5);
-	root = insert(root,15);
-	root = insert(root,10);
+	root = insert(root,11);
+	root = insert(root,8);
+	root = insert(root,9);
+	root = insert(root,12);
 	root = insert(root,3);
-	//root = insert(root,1);
 	intrav(root);
 	printf("\n");
 	preorder(root);
 	printf("\n");
 	postorder(root);
+	
+	int H = height(root);
+	
+	printf("\n%d\n",H);
+	int cnt = countleafnode(root,cnt);
+	printf("%d\n",cnt);
 }
