@@ -21,6 +21,18 @@ int height(node* node){
 	return ans;
 }
 
+void printroot(node* root){
+	if(root==NULL){
+		return ;
+	}
+	printroot(root->left);
+	printroot(root->right);
+	int n=root->data;
+	if(root->right!=NULL || root->left!=NULL)
+	printf(" %d ",n);
+	return ;
+}
+
 int countleafnode(node* root,int& count){
 	if(root==NULL)
 	return 0;
@@ -76,11 +88,19 @@ void postorder(node* tree){
 int main(){
 	node* root= NULL;
 	root = insert(root,10);
-	root = insert(root,11);
-	root = insert(root,8);
-	root = insert(root,9);
-	root = insert(root,12);
+	root = insert(root,15);
+	root = insert(root,5);
 	root = insert(root,3);
+	root = insert(root,2);
+	root = insert(root,4);
+	root = insert(root,7);
+	root = insert(root,6);
+	root = insert(root,8);
+	root = insert(root,17);
+	root = insert(root,16);
+	root = insert(root,18);
+	root = insert(root,13);
+	root = insert(root,12);
 	intrav(root);
 	printf("\n");
 	preorder(root);
@@ -92,4 +112,6 @@ int main(){
 	printf("\n%d\n",H);
 	int cnt = countleafnode(root,cnt);
 	printf("%d\n",cnt);
+	printf("roots\n");
+	printroot(root);
 }
